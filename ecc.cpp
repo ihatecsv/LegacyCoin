@@ -11,8 +11,11 @@ using namespace std;
 
 void createKeypair(EC_KEY **key){
     *key = EC_KEY_new();
-    EC_GROUP *ecGroup = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1); //TODO: this leaks
+    
+    EC_GROUP *ecGroup = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1);
     EC_KEY_set_group(*key, ecGroup);
+    EC_GROUP_free(ecGroup);
+
     EC_KEY_generate_key(*key);
 }
 
@@ -23,8 +26,8 @@ void signData(EC_KEY **key, const unsigned char* data, ){
 */
 
 /*
-    const BIGNUM *pr = NULL;
-    const BIGNUM *ps = NULL;
+    const BIGNUM *pr;
+    const BIGNUM *ps;
     
     ECDSA_SIG_get0(signature, &pr, &ps);
 
@@ -41,10 +44,6 @@ void signData(EC_KEY **key, const unsigned char* data, ){
     }
 
     cout << "Verified sig!" << endl;
-
-    EC_GROUP_free(ecgroup);
-
-    EC_KEY_free(eckey);
 */
 
 int main(){
