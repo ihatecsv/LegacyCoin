@@ -11,8 +11,8 @@ using namespace std;
 
 void createKeypair(EC_KEY **key){
     *key = EC_KEY_new();
-    EC_GROUP *ecgroup = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1);
-    EC_KEY_set_group(*key, ecgroup);
+    EC_GROUP *ecGroup = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1); //TODO: this leaks
+    EC_KEY_set_group(*key, ecGroup);
     EC_KEY_generate_key(*key);
 }
 
